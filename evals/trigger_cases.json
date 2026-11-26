@@ -1,0 +1,100 @@
+{
+ "_doc": "Trigger-eval описания; Near-miss негативы: общие слова с соседом, но место соседа.",
+ "competitors": [
+  "prompt-craft",
+  "oss-comms",
+  "deepdive",
+  {
+   "name": "code-review",
+   "description": "Review the current diff, or a PR number/branch/path target, for correctness bugs (plus reuse/simplification/efficiency cleanups where the model's review recipe covers them) at the given effort level. Pass --comment to post findings as inline PR comments, or --fix to apply the findings to the working tree after the review."
+  },
+  {
+   "name": "source-check",
+   "description": "Дисциплина источников и проверка ссылок в документах: каждая цифра и дата получает источник; скрипт находит цифры без ссылки, дубли и битые URL."
+  }
+ ],
+ "cases": [
+  {
+   "id": "t01",
+   "split": "train",
+   "should_trigger": true,
+   "prompt": "Почисти от канцелярита: «Осуществляется проведение мероприятий в целях повышения эффективности взаимодействия»"
+  },
+  {
+   "id": "t02",
+   "split": "train",
+   "should_trigger": true,
+   "prompt": "Очеловечь черновик README, он пахнет ChatGPT"
+  },
+  {
+   "id": "t03",
+   "split": "train",
+   "should_trigger": true,
+   "prompt": "Проверь это письмо на AI-слоп и скажи, что в нём машинное"
+  },
+  {
+   "id": "t04",
+   "split": "test",
+   "should_trigger": true,
+   "prompt": "Humanize this Russian report draft, keep my voice"
+  },
+  {
+   "id": "t05",
+   "split": "train",
+   "should_trigger": true,
+   "prompt": "Это писал ИИ, поправь, чтобы звучало как живой человек: «В современном мире цифровизация играет ключевую роль…»"
+  },
+  {
+   "id": "t06",
+   "split": "test",
+   "should_trigger": true,
+   "prompt": "Отредактируй docs/report.docx по-русски: убери канцелярит и воду, факты и цифры не трогай"
+  },
+  {
+   "id": "n01",
+   "split": "train",
+   "should_trigger": false,
+   "prompt": "Напиши коммит-сообщение для этого диффа",
+   "route_to": "commit-commands:commit"
+  },
+  {
+   "id": "t07",
+   "split": "train",
+   "should_trigger": true,
+   "prompt": "Напиши введение к отчёту про логистику с нуля"
+  },
+  {
+   "id": "t08",
+   "split": "test",
+   "should_trigger": true,
+   "prompt": "Составь письмо заказчику о переносе срока на две недели"
+  },
+  {
+   "id": "n03",
+   "split": "test",
+   "should_trigger": false,
+   "prompt": "Ответь ревьюеру в PR, что мы поправили",
+   "route_to": "oss-comms"
+  },
+  {
+   "id": "n04",
+   "split": "test",
+   "should_trigger": false,
+   "prompt": "Улучши системный промпт бота поддержки",
+   "route_to": "prompt-craft"
+  },
+  {
+   "id": "n05",
+   "split": "train",
+   "should_trigger": false,
+   "prompt": "Объясни, как работает async/await в Python"
+  },
+  {
+   "id": "n06",
+   "split": "test",
+   "should_trigger": false,
+   "prompt": "Проверь источники и ссылки в этом отчёте: у каждой цифры должна быть ссылка",
+   "route_to": "source-check"
+  }
+ ]
+}
